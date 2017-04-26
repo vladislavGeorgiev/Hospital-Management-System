@@ -1,0 +1,36 @@
+﻿@model HospitalManagementSystem.Models.Patients.CreateNewPatient
+
+@{ 
+    ViewBag.Title = "Add new patient";
+}
+
+@using (Html.BeginForm("Create", "Patients", FormMethod.Post, new { enctype="multipart/form-data"}))
+{
+    @Html.EditorForModel()
+
+    <div>
+        @Html.LabelFor(n=>n.Gender)
+    </div>
+    <div>
+        @Html.EnumDropDownListFor(n => n.Gender)
+    </div>
+
+    <div>
+        @Html.LabelFor(n=>n.Status)
+        </div>
+        <div>
+            @Html.EnumDropDownListFor(n => n.Status)
+        </div>
+
+        <div>
+            @Html.Label("image","Photograph")<br>
+            @Html.TextBox("image",null,new { type="file"})
+            </div>
+    
+    <br />
+    <div>
+        <input type="submit" value="Save Patient"/>
+        </div>
+}
+
+
