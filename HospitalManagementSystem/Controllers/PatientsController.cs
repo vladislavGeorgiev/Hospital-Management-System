@@ -14,6 +14,21 @@ namespace HospitalManagementSystem.Controllers
 
     public class PatientsController :Controller
     {
+        public ActionResult AllPatients()
+        {
+            var db = new PatientsDbContext();
+            var patients=db.Patients
+                .Select(c=>new PatientsListingModel
+                {
+                    Id=c.Id,
+                    ImagePath=c.ImagePath
+
+            })
+            .ToList();
+            return View(patients);
+        }
+
+
         [Authorize]
         [HttpGet]
         public ActionResult Create()

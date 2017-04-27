@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HospitalManagementSystem.Models.Patients.HomeIndexPatientsModel>
+﻿@model IEnumerable<HospitalManagementSystem.Models.Patients.PatientsListingModel>
 
 
 @{
@@ -12,13 +12,14 @@
 </div>
 
 
+<h2 class="text-center"><b>Recent patients:</b></h2>
+
 <div class="row">
     @foreach (var patient in Model)
     {
 
         <div class="col-md-4">
-            <h2>@patient.Name @patient.Condition</h2>
-
+           <img src="@patient.ImagePath" width="200px">
 
             <p><a class="btn btn-default" href="Patients/Details/@patient.Id">Full Profile</a></p>
         </div>

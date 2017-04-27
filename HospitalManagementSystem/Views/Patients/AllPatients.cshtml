@@ -1,0 +1,11 @@
+﻿@model IEnumerable<HospitalManagementSystem.Models.Patients.PatientsListingModel>
+
+@foreach(var patient in Model)
+{
+    <div class="row mt-60">
+        <div class="col-md-6">
+            <img src="@patient.ImagePath" width="200px">
+            <a href="/Patients/Details/@patient.Id" class="btn btn-default">Full Profile</a>
+            </div>
+        </div>
+}

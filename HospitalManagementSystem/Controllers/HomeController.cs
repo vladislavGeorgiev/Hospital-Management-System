@@ -17,11 +17,10 @@ namespace HospitalManagementSystem.Controllers
             var patients = db.Patients
                 .OrderByDescending(c => c.Id)
                 .Take(3)
-                .Select(c => new HomeIndexPatientsModel
+                .Select(c => new PatientsListingModel
                 {
                     Id = c.Id,
-                    Name = c.Name,
-                    Condition = c.Condition
+                   ImagePath=c.ImagePath
                 })
                 .ToList();
 
