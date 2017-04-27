@@ -152,7 +152,7 @@ namespace HospitalManagementSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new Doctor { UserName = model.Email, Email = model.Email };
+                var user = new Doctor { UserName = model.Email,FullName=model.FullName, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

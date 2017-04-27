@@ -10,9 +10,13 @@ namespace HospitalManagementSystem.Data
     using Microsoft.AspNet.Identity.EntityFramework;
     using System.Collections;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     public class Doctor : IdentityUser
     {
+        [Required]
+        public string FullName { get; set; }
+
         public Doctor()
         {
             this.Patients = new HashSet<Patient>();
