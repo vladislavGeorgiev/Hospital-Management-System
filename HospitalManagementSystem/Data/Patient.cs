@@ -39,5 +39,7 @@ namespace HospitalManagementSystem.Data
 
         public virtual Doctor Doctor { get; set; }
 
+
+
     }
 }

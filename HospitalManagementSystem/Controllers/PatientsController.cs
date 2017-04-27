@@ -64,5 +64,30 @@ namespace HospitalManagementSystem.Controllers
             return View(PatientModel);
         }
         
+        public ActionResult Details(int id)
+        {
+            var db = new PatientsDbContext();
+            var patient = db.Patients.Where(c => c.Id == id)
+                .Select(c => new PatientsDetailsModel
+                {
+                    Name = c.Name,
+                    Age = c.Age,
+                    Gender = c.Gender,
+                    Condition = c.Condition,
+                    Status = c.Status,
+                    Room = c.Room,
+                    ImagePath=c.ImagePath
+
+
+            })
+            .FirstOrDefault();
+
+            if(patient==null)
+            {
+                return HttpNotFound();
+            }
+            return View(patient);
+        }
+
     }
 }

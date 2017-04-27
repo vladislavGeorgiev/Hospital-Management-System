@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HospitalManagementSystem.Data;
+using HospitalManagementSystem.Models.Patients;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +12,20 @@ namespace HospitalManagementSystem.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var db = new PatientsDbContext();
+
+            var patients = db.Patients
+                .OrderByDescending(c => c.Id)
+                .Take(3)
+                .Select(c => new HomeIndexPatientsModel
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    Condition = c.Condition
+                })
+                .ToList();
+
+            return View(patients);
         }
 
         

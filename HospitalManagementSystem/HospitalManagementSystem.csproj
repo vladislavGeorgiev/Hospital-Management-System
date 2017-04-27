@@ -211,6 +211,8 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Data\PatientsDbContext.cs" />
     <Compile Include="Models\Patients\CreateNewPatient.cs" />
+    <Compile Include="Models\Patients\HomeIndexPatientsModel.cs" />
+    <Compile Include="Models\Patients\PatientsDetailsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -271,6 +273,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Patients\Create.cshtml" />
+    <Content Include="Views\Patients\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

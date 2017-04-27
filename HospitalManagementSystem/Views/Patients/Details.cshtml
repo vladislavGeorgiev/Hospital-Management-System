@@ -1,0 +1,9 @@
+﻿@model HospitalManagementSystem.Models.Patients.PatientsDetailsModel
+
+@Html.DisplayForModel()
+
+
+@if (!string.IsNullOrEmpty(Model.ImagePath))
+{
+<img src="@Model.ImagePath" alt="article Image"  width="200px"/ >
+}
