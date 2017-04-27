@@ -33,5 +33,7 @@ namespace HospitalManagementSystem.Models.Patients
 
         [Required]
         public int Room { get; set; }
+
+        public string Doctor { get; set; }
     }
 }

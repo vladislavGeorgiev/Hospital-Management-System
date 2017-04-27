@@ -76,8 +76,8 @@ namespace HospitalManagementSystem.Controllers
                     Condition = c.Condition,
                     Status = c.Status,
                     Room = c.Room,
-                    ImagePath=c.ImagePath
-
+                    ImagePath=c.ImagePath,
+                    Doctor=c.Doctor.FullName
 
             })
             .FirstOrDefault();
