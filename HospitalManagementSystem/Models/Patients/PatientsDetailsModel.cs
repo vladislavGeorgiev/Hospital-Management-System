@@ -35,5 +35,14 @@ namespace HospitalManagementSystem.Models.Patients
         public int Room { get; set; }
 
         public string Doctor { get; set; }
+
+
+        public string DoctorId { get; set; }
+
+        public bool IsAuthor(string authorId)
+        {
+            return this.DoctorId == authorId;
+        }
+
     }
 }

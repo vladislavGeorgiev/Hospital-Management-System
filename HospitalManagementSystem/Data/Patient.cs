@@ -39,7 +39,10 @@ namespace HospitalManagementSystem.Data
 
         public virtual Doctor Doctor { get; set; }
 
-
+        public bool IsAuthor(string authorId)
+        {
+            return this.DoctorId == authorId;
+        }
 
     }
 }

@@ -20,8 +20,15 @@
         <h2><b>Room:</b> @Model.Room</h2>
         <h2><b>Physician:</b> @Model.Doctor</h2>      
         <footer class="pull-right">
-           <b> @Html.ActionLink("Edit","Edit","Patients", new { @id=Model.Id}, new { @class="btn btn-primary btn-large"}) </b>
-            <b> @Html.ActionLink("Delete", "Delete", "Patients", new { @id = Model.Id }, new { @class = "btn btn-primary btn-large" }) </b>
+            @if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("Admin") || Model.IsAuthor(User.Identity.GetUserId()))
+                {
+                    <b> @Html.ActionLink("Edit", "Edit", "Patients", new { @id = Model.Id }, new { @class = "btn btn-primary btn-large" }) </b>
+                    <b> @Html.ActionLink("Delete", "Delete", "Patients", new { @id = Model.Id }, new { @class = "btn btn-primary btn-large" }) </b>
+                }
+
+            }
             <b> @Html.ActionLink("Back", "AllPatients", "Patients", new { @id = Model.Id }, new { @class = "btn btn-primary btn-large" }) </b>
           
             </footer>
