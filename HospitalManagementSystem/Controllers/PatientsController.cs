@@ -10,6 +10,7 @@ namespace HospitalManagementSystem.Controllers
     using Microsoft.AspNet.Identity;
     using Models.Patients;
     using System.IO;
+    using System.Net;
     using System.Web.Mvc;
 
     public class PatientsController :Controller
@@ -50,7 +51,8 @@ namespace HospitalManagementSystem.Controllers
                     Condition = PatientModel.Condition,
                     Status = PatientModel.Status,
                     Room = PatientModel.Room,
-                    DoctorId = doctorId
+                    DoctorId = doctorId,
+                    Id=PatientModel.Id
                 };
 
                 if (image != null)
@@ -81,6 +83,8 @@ namespace HospitalManagementSystem.Controllers
         
         public ActionResult Details(int id)
         {
+            
+
             var db = new PatientsDbContext();
             var patient = db.Patients.Where(c => c.Id == id)
                 .Select(c => new PatientsDetailsModel
@@ -92,7 +96,8 @@ namespace HospitalManagementSystem.Controllers
                     Status = c.Status,
                     Room = c.Room,
                     ImagePath=c.ImagePath,
-                    Doctor=c.Doctor.FullName
+                    Doctor=c.Doctor.FullName,
+                    Id=c.Id
 
             })
             .FirstOrDefault();
@@ -102,6 +107,89 @@ namespace HospitalManagementSystem.Controllers
                 return HttpNotFound();
             }
             return View(patient);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+           
+            using (var db = new PatientsDbContext())
+            {
+                var patient = db.Patients.Find(id);
+               
+                    
+
+                if(patient==null)
+                {
+                    return HttpNotFound();
+                }
+                return View(patient);
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+          
+            using (var db = new PatientsDbContext())
+            {
+                var patient = db.Patients.Find(id);
+                   
+                if(patient==null)
+                {
+                    return HttpNotFound();
+                }
+                db.Patients.Remove(patient);
+                db.SaveChanges();
+                return RedirectToAction("AllPatients");
+            }
+            
+        }
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            using (var db = new PatientsDbContext())
+            {
+                var patient = db.Patients.Find(id);
+
+                var patientEditModel = new PatientsEditModel
+                {
+                    Id = patient.Id,
+                    Name = patient.Name,
+                    Gender = patient.Gender,
+                    Condition = patient.Condition,
+                    Status = patient.Status,
+                    Room = patient.Room,
+                    DoctorId = patient.DoctorId
+                };
+                return View(patientEditModel);
+            }
+        }
+        public ActionResult Edit(PatientsEditModel model)
+        {
+            if(ModelState.IsValid)
+            {
+                using (var db = new PatientsDbContext())
+                {
+                    var patient =db.Patients.Find(model.Id);
+
+                    patient.Id = model.Id;
+                    patient.ImagePath = model.ImagePath;
+                    patient.Room = model.Room;
+                    patient.Status = model.Status;
+                    patient.Gender = model.Gender;
+                    patient.Condition = model.Condition;
+
+
+                }
+                return RedirectToAction("Details", new { id = model.Id });
+            }
+            return View(model);
         }
 
     }

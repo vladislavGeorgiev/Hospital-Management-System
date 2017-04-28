@@ -9,7 +9,7 @@ namespace HospitalManagementSystem.Data
     using System.ComponentModel.DataAnnotations;
     public class Patient
     {
-        [Key]
+        
         public int Id { get; set; }
 
         [Required]
@@ -22,7 +22,7 @@ namespace HospitalManagementSystem.Data
         [Required]
         public GenderOption Gender { get; set; }
 
-        [Required]
+        
         public string ImagePath { get; set; }
 
         [Required]

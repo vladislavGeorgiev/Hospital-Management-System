@@ -10,6 +10,9 @@ namespace HospitalManagementSystem.Models.Patients
     using System.ComponentModel.DataAnnotations;
     public class CreateNewPatient
     {
+        [ScaffoldColumn(false)]
+        public int Id { get; set; }
+
         [Required]
         [MaxLength(100)]
         public string Name { get; set; }

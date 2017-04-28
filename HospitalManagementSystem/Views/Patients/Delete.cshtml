@@ -1,0 +1,39 @@
+﻿@model HospitalManagementSystem.Data.Patient
+
+
+@{
+    ViewBag.Title = "Delete";
+}
+<h2 class="text-center"><b>Delete Patient</b></h2>
+@using (Html.BeginForm("Delete", "Patients", FormMethod.Post))
+{
+
+    @Html.AntiForgeryToken()
+
+    <div class="row mt-60">
+        <div class="col-md-4">
+            @if (!string.IsNullOrEmpty(Model.ImagePath))
+            {
+                <img src="@Model.ImagePath" alt="article Image" width="200px" />
+            }
+        </div>
+        <div class="col-md-4">
+            <h2><b> Name:</b> @Model.Name</h2>
+            <h2><b>Age:</b> @Model.Age</h2>
+            <h2><b>Gender:</b> @Model.Gender</h2>
+            <h2><b>Condition:</b> @Model.Condition</h2>
+            <h2><b>Status:</b> @Model.Status</h2>
+            <h2><b>Room:</b> @Model.Room</h2>
+            <br>
+            <br>
+            @Html.ActionLink("Cancel", "AllPatients", "Patients", null, new { @class = "btn btn-default" })
+
+            <input type="submit" value="Delete" class="btn-danger" />
+
+        </div>
+        
+      
+        
+    </div>
+}
+

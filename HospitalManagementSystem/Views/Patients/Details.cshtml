@@ -1,12 +1,14 @@
 ﻿@model HospitalManagementSystem.Models.Patients.PatientsDetailsModel
-
-
+@using Microsoft.AspNet.Identity;
+@{ 
+    ViewBag.Title = "Details";
+}
 
 <div class="row mt-60">
     <div class="col-md-4">
         @if (!string.IsNullOrEmpty(Model.ImagePath))
         {
-            <img src="@Model.ImagePath" alt="article Image" width="200px"/ >
+            <img src="@Model.ImagePath" alt="article Image" width="200px"/>
         }
     </div>
     <div class="col-md-4">
@@ -16,7 +18,13 @@
         <h2><b>Condition:</b> @Model.Condition</h2>
         <h2><b>Status:</b> @Model.Status</h2>
         <h2><b>Room:</b> @Model.Room</h2>
-        <h2><b>Physician:</b> @Model.Doctor</h2>
+        <h2><b>Physician:</b> @Model.Doctor</h2>      
+        <footer class="pull-right">
+           <b> @Html.ActionLink("Edit","Edit","Patients", new { @id=Model.Id}, new { @class="btn btn-primary btn-large"}) </b>
+            <b> @Html.ActionLink("Delete", "Delete", "Patients", new { @id = Model.Id }, new { @class = "btn btn-primary btn-large" }) </b>
+            <b> @Html.ActionLink("Back", "AllPatients", "Patients", new { @id = Model.Id }, new { @class = "btn btn-primary btn-large" }) </b>
+          
+            </footer>
 
     </div>
     <div class="col-md-4">

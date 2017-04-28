@@ -9,8 +9,8 @@ namespace HospitalManagementSystem.Models.Patients
 {
     public class PatientsDetailsModel
     {
-        [Key]
-        public int Id { get; set; }
+       
+        public   int Id { get; set; }
 
         [Required]
         [MaxLength(100)]
@@ -22,7 +22,7 @@ namespace HospitalManagementSystem.Models.Patients
         [Required]
         public GenderOption Gender { get; set; }
 
-        [Required]
+      
         public string ImagePath { get; set; }
 
         [Required]
