@@ -6,6 +6,7 @@ using System.Web;
 
 namespace HospitalManagementSystem.Data
 {
+  
     using System.ComponentModel.DataAnnotations;
     public class Patient
     {
@@ -39,9 +40,9 @@ namespace HospitalManagementSystem.Data
 
         public virtual Doctor Doctor { get; set; }
 
-        public bool IsAuthor(string authorId)
+        public bool IsAuthor(string name)
         {
-            return this.DoctorId == authorId;
+            return this.Doctor.Email == name;
         }
 
     }

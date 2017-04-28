@@ -15,13 +15,24 @@ namespace HospitalManagementSystem.Controllers
 
     public class PatientsController :Controller
     {
-        public ActionResult AllPatients()
+        public ActionResult AllPatients(string search=null)
         {
+           
+
             var db = new PatientsDbContext();
+            var patientsQuery = db.Patients.AsQueryable();
+            if (search != null)
+            {
+                
+                patientsQuery = patientsQuery.Where(c => c.Name.ToLower().Contains(search.ToLower())
+                  );
+            }
+
             var patients=db.Patients
                 .Select(c=>new PatientsListingModel
                 {
                     Id=c.Id,
+                    Name=c.Name,                  
                     ImagePath=c.ImagePath
 
             })
@@ -95,6 +106,7 @@ namespace HospitalManagementSystem.Controllers
                     Condition = c.Condition,
                     Status = c.Status,
                     Room = c.Room,
+                    DoctorId=c.DoctorId,
                     ImagePath=c.ImagePath,
                     Doctor=c.Doctor.FullName,
                     Id=c.Id
@@ -120,7 +132,7 @@ namespace HospitalManagementSystem.Controllers
                
                     
 
-                if(patient==null||!IsAuthorized(patient))
+                if(patient==null||!IsAuthorizedToEdit(patient))
                 {
                     return HttpNotFound();
                 }
@@ -137,8 +149,10 @@ namespace HospitalManagementSystem.Controllers
             using (var db = new PatientsDbContext())
             {
                 var patient = db.Patients.Find(id);
+
+               
                    
-                if(patient==null || !IsAuthorized(patient))
+                if(patient==null || !IsAuthorizedToEdit(patient))
                 {
                     return HttpNotFound();
                 }
@@ -156,7 +170,8 @@ namespace HospitalManagementSystem.Controllers
             using (var db = new PatientsDbContext())
             {
                 var patient = db.Patients.Find(id);
-                if(patient==null||!IsAuthorized(patient))
+              
+                if (patient==null||!IsAuthorizedToEdit(patient))
                 {
                     return HttpNotFound();
                 }
@@ -185,7 +200,7 @@ namespace HospitalManagementSystem.Controllers
                 {
                     var patient =db.Patients.Find(model.Id);
 
-                    if (patient == null || !IsAuthorized(patient))
+                    if (patient == null || !IsAuthorizedToEdit(patient))
                     {
                         return HttpNotFound();
                     }
@@ -224,10 +239,10 @@ namespace HospitalManagementSystem.Controllers
             return View(model);
         }
 
-        private bool IsAuthorized(Patient patient)
+        private bool IsAuthorizedToEdit(Patient patient)
         {
             var isAdmin = this.User.IsInRole("Admin");
-            var isAuthor = patient.IsAuthor(this.User.Identity.GetUserId());
+            var isAuthor = patient.IsAuthor(this.User.Identity.Name);
 
             return isAdmin || isAuthor;
         }

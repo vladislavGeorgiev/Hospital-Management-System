@@ -36,12 +36,12 @@ namespace HospitalManagementSystem.Models.Patients
 
         public string Doctor { get; set; }
 
-
+        [Required]
         public string DoctorId { get; set; }
 
-        public bool IsAuthor(string authorId)
+        public bool IsAuthor(string name)
         {
-            return this.DoctorId == authorId;
+            return this.DoctorId == name;
         }
 
     }
