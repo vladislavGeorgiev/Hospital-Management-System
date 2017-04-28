@@ -2,3 +2,35 @@
     @{ 
         ViewBag.Title = "Edit";
     }
+@using (Html.BeginForm("Edit", "Patients", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+
+    @Html.EditorForModel()
+
+    <div>
+        @Html.LabelFor(n => n.Gender)
+    </div>
+    <div>
+        @Html.EnumDropDownListFor(n => n.Gender)
+    </div>
+
+    <div>
+        @Html.LabelFor(n => n.Status)
+    </div>
+        <div>
+            @Html.EnumDropDownListFor(n => n.Status)
+        </div>
+
+        <div>
+            @Html.Label("image", "Photograph")<br>
+            @Html.TextBox("image", null, new { type = "file" })
+        </div>
+
+            <br />
+            <div>
+                <input type="submit" value="Edit" />
+            </div>
+}

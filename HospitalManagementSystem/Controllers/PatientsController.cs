@@ -38,21 +38,21 @@ namespace HospitalManagementSystem.Controllers
         }
         [Authorize]
         [HttpPost]
-        public ActionResult Create(CreateNewPatient PatientModel,HttpPostedFileBase image)
+        public ActionResult Create(CreateNewPatient model,HttpPostedFileBase image)
         {
-            if(PatientModel!=null && this.ModelState.IsValid)
+            if(model!=null && this.ModelState.IsValid)
             {
                 var doctorId = this.User.Identity.GetUserId();
                 var patient = new Patient
                 {
-                    Name = PatientModel.Name,
-                    Age = PatientModel.Age,
-                    Gender = PatientModel.Gender,
-                    Condition = PatientModel.Condition,
-                    Status = PatientModel.Status,
-                    Room = PatientModel.Room,
+                    Name = model.Name,
+                    Age = model.Age,
+                    Gender = model.Gender,
+                    Condition = model.Condition,
+                    Status = model.Status,
+                    Room = model.Room,
                     DoctorId = doctorId,
-                    Id=PatientModel.Id
+                    Id=model.Id
                 };
 
                 if (image != null)
@@ -78,7 +78,7 @@ namespace HospitalManagementSystem.Controllers
                 return RedirectToAction("Details", new { id = patient.Id });
 
             }
-            return View(PatientModel);
+            return View(model);
         }
         
         public ActionResult Details(int id)
@@ -160,17 +160,20 @@ namespace HospitalManagementSystem.Controllers
                 var patientEditModel = new PatientsEditModel
                 {
                     Id = patient.Id,
+                    Age=patient.Age,
                     Name = patient.Name,
                     Gender = patient.Gender,
                     Condition = patient.Condition,
                     Status = patient.Status,
                     Room = patient.Room,
-                    DoctorId = patient.DoctorId
+                    ImagePath=patient.ImagePath
                 };
                 return View(patientEditModel);
             }
         }
-        public ActionResult Edit(PatientsEditModel model)
+        [Authorize]
+        [HttpPost]
+        public ActionResult Edit(PatientsEditModel model, HttpPostedFileBase image)
         {
             if(ModelState.IsValid)
             {
@@ -179,14 +182,34 @@ namespace HospitalManagementSystem.Controllers
                     var patient =db.Patients.Find(model.Id);
 
                     patient.Id = model.Id;
+                    patient.Name = model.Name;
                     patient.ImagePath = model.ImagePath;
                     patient.Room = model.Room;
+                    patient.Age = model.Age;
                     patient.Status = model.Status;
                     patient.Gender = model.Gender;
                     patient.Condition = model.Condition;
 
+                    if (image != null)
+                    {
+                        var allowedContentTypes = new[] { "image/jpeg", "image/jpg", "image/png" };
 
+                        if (allowedContentTypes.Contains(image.ContentType))
+                        {
+                            var imagesPath = "/Content/Images/";
+
+                            var fileName = image.FileName;
+                            var uploadPath = imagesPath + fileName;
+                            var physicalPath = Server.MapPath(uploadPath);
+
+                            image.SaveAs(physicalPath);
+                            patient.ImagePath = uploadPath;
+                        }
+                    }
+
+                    db.SaveChanges();
                 }
+               
                 return RedirectToAction("Details", new { id = model.Id });
             }
             return View(model);

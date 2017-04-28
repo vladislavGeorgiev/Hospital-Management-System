@@ -9,7 +9,7 @@ namespace HospitalManagementSystem.Models.Patients
 {
     public class PatientsEditModel
     {
-        
+        [ScaffoldColumn(false)]
         public int Id { get; set; }
 
         [Required]
@@ -20,22 +20,23 @@ namespace HospitalManagementSystem.Models.Patients
         public int Age { get; set; }
 
         [Required]
+        [ScaffoldColumn(false)]
         public GenderOption Gender { get; set; }
 
-      
+        [ScaffoldColumn(false)]
         public string ImagePath { get; set; }
 
         [Required]
         public string Condition { get; set; }
 
         [Required]
+        [ScaffoldColumn(false)]
         public StatusOption Status { get; set; }
 
         [Required]
         public int Room { get; set; }
 
-        [Required]
-        public string DoctorId { get; set; }
+       
 
 
     }
