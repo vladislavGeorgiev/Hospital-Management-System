@@ -211,6 +211,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Data\PatientsDbContext.cs" />
     <Compile Include="Models\Patients\CreateNewPatient.cs" />
+    <Compile Include="Models\Patients\MyPatientsModel.cs" />
     <Compile Include="Models\Patients\PatientsEditModel.cs" />
     <Compile Include="Models\Patients\PatientsListingModel.cs" />
     <Compile Include="Models\Patients\PatientsDetailsModel.cs" />
@@ -278,6 +279,7 @@
     <Content Include="Views\Patients\AllPatients.cshtml" />
     <Content Include="Views\Patients\Delete.cshtml" />
     <Content Include="Views\Patients\Edit.cshtml" />
+    <Content Include="Views\Account\MyPatients.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

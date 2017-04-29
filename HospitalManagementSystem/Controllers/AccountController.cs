@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using HospitalManagementSystem.Models;
 using HospitalManagementSystem.Data;
+using HospitalManagementSystem.Models.Patients;
 
 namespace HospitalManagementSystem.Controllers
 {
@@ -402,6 +403,26 @@ namespace HospitalManagementSystem.Controllers
         public ActionResult ExternalLoginFailure()
         {
             return View();
+        }
+
+        [Authorize]
+        public ActionResult MyPatients()
+        {
+            var db = new PatientsDbContext();
+            var userId = this.User.Identity.GetUserId();
+            var patients = db.Patients
+                .OrderByDescending(c => c.Id)
+                .Where(c => c.DoctorId == userId)
+                .Select(c => new MyPatientsModel
+                {
+                    Name=c.Name,
+                    Condition=c.Condition,
+                    Room=c.Room,
+                    Id=c.Id
+                }
+                )
+                .ToList();
+            return View(patients);
         }
 
         protected override void Dispose(bool disposing)
