@@ -15,18 +15,13 @@ namespace HospitalManagementSystem.Controllers
 
     public class PatientsController :Controller
     {
-        public ActionResult AllPatients(string search=null)
+        public ActionResult AllPatients()
         {
            
 
             var db = new PatientsDbContext();
             var patientsQuery = db.Patients.AsQueryable();
-            if (search != null)
-            {
-                
-                patientsQuery = patientsQuery.Where(c => c.Name.ToLower().Contains(search.ToLower())
-                  );
-            }
+            
 
             var patients=db.Patients
                 .Select(c=>new PatientsListingModel

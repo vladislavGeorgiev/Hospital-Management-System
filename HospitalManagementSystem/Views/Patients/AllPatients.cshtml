@@ -1,13 +1,7 @@
 ﻿@model IEnumerable<HospitalManagementSystem.Models.Patients.PatientsListingModel>
 
 
-@using (Html.BeginForm("AllPatients","Patients",FormMethod.Get))
-{
-<div class="text-center mt-60">
-    <input type="text" class="form-control" name="search" style="display: inline-block"  value="@Request.QueryString["search"]"/>
-    <input type="submit" value="Search" class="btn btn-default"/>
-</div>
-}
+
 
 
 @foreach(var patient in Model)
@@ -21,6 +15,4 @@
             </div>
         </div>
 }
- @{
-     var currentSearchQuery = Request.QueryString["search"];
-}
+ @
